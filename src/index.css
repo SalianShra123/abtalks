@@ -1,0 +1,351 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light;
+  --text-main: #18181B;
+  --accent: #4F46E5;
+  --border: #E4E4E7;
+  --success-light: #ECFDF5;
+  --success: #059669;
+}
+
+body {
+  background-color: #FAFAF8;
+  color: #18181B;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(161, 161, 170, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 113, 122, 0.5);
+}
+
+/* Shimmer Sweep Animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.animate-shimmer {
+  animation: shimmer 2.2s infinite ease-in-out;
+}
+
+/* 1. Signature Matrix with Fluid States */
+.matrix-dot { 
+  aspect-ratio: 1; 
+  border-radius: 3px; 
+  background: #e2e0da; 
+  position: relative; 
+  cursor: pointer; 
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Micro-interaction on user focus/hover */
+.matrix-dot:hover { 
+  transform: translateY(-2px) scale(1.2); 
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.matrix-dot.completed { 
+  background: var(--text-main); 
+}
+
+/* Pulsing beacon animation for the active day */
+.matrix-dot.current { 
+  background: var(--accent); 
+  animation: pulseBeacon 2s infinite ease-in-out;
+}
+
+@keyframes pulseBeacon {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 66, 196, 0.4); }
+  70% { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(59, 66, 196, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 66, 196, 0); }
+}
+
+/* 2. Micro-Interactions in Step Cards */
+.step-card { 
+  border-bottom: 1px solid var(--border); 
+  padding: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Elegant premium reveal effect */
+.step-card:hover {
+  background: #ffffff;
+  border-bottom-color: transparent;
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.02);
+  transform: translateY(-1px);
+}
+
+/* 3. Proof Mockup & Status Tags */
+.proof-mockup { 
+  border: 1px solid rgba(17, 17, 17, 0.05); 
+  border-radius: 16px; 
+  background: #ffffff; 
+  padding: 24px; 
+  /* Sophisticated dual-layer shadow architecture */
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 12px 32px rgba(17, 17, 17, 0.03); 
+}
+
+.status-tag { 
+  font-size: 11px; 
+  padding: 4px 10px; 
+  border-radius: 99px; 
+  font-weight: 500; 
+  background: var(--success-light); 
+  color: var(--success);
+  border: 1px solid rgba(27, 122, 67, 0.1); /* Crisp inner border tag */
+}
+
+/* 4. Animated Progress Bar Loading State */
+.progress-bar-fill { 
+  width: 0%; 
+  height: 100%; 
+  background: var(--accent); 
+  border-radius: 2px;
+  animation: loadProgress 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes loadProgress {
+  to { width: 20%; }
+}
+
+/* 5. Crisp Text Layout Dividers */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 32px 0;
+}
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Glassmorphic ethereal utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(228, 228, 231, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(24, 24, 27, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(244, 244, 245, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.06);
+}
+
+.glow-accent {
+  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
+}
+
+.glow-subtle {
+  box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.12);
+}
+
+/* Ethereal mesh gradient ambient background */
+.ethereal-bg {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(224, 231, 255, 0.45) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(238, 242, 255, 0.6) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(245, 243, 255, 0.5) 0px, transparent 50%);
+}
+
+.code-font {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 6. Proof of Work Showcase Explicit Keyframe Animations */
+@keyframes laserSweepTrace {
+  0% { left: -100%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@keyframes streakIgniteRadiant {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+  50% { transform: scale(1.15); box-shadow: 0 0 16px 4px rgba(249, 115, 22, 0.25); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+}
+
+@keyframes tagSubmittedPopIn {
+  0% { opacity: 0; transform: translateY(4px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes columnDriftUpIn {
+  0% { opacity: 0.2; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-laser-sweep {
+  animation: laserSweepTrace 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-streak-ignite {
+  animation: streakIgniteRadiant 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-tag-pop {
+  animation: tagSubmittedPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-column-drift {
+  animation: columnDriftUpIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 7. Dashboard & Today Challenge Interactive Animation Engine */
+@keyframes radarSweepAngle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bonfireFlicker {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4)); }
+  50% { transform: scale(1.08) rotate(1.5deg); filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.7)); }
+}
+
+@keyframes momentumRippleWave {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes progressRingShimmer {
+  0% { transform: rotate(0deg); opacity: 0.2; }
+  50% { opacity: 0.6; }
+  100% { transform: rotate(360deg); opacity: 0.2; }
+}
+
+.flame-bonfire-ignition {
+  animation: bonfireFlicker 2.5s infinite ease-in-out;
+}
+
+.momentum-ripple-node {
+  animation: momentumRippleWave 3s infinite ease-in-out;
+}
+
+.progress-ring-shimmer-mask {
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(from 0deg, transparent 0 300deg, rgba(255, 255, 255, 0.25) 360deg);
+  animation: progressRingShimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+.radar-sweep-beam {
+  animation: radarSweepAngle 6s linear infinite;
+}
+
+/* Master Tactile Hover Styles */
+.tag-interactive-indigo {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tag-interactive-indigo:hover {
+  background-color: rgba(59, 66, 196, 0.08) !important;
+  border-color: rgba(59, 66, 196, 0.3) !important;
+  color: #3b42c4 !important;
+  transform: translateY(-1px);
+}
+
+.btn-interactive-indigo {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-interactive-indigo:hover {
+  background-color: #3b42c4 !important;
+  color: #ffffff !important;
+  border-color: #4f46e5 !important;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 10px 25px -5px rgba(59, 66, 196, 0.35);
+}
+
+.kinetic-border-tracer {
+  position: relative;
+}
+.kinetic-border-tracer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59, 66, 196, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kinetic-border-tracer:hover::after {
+  opacity: 1;
+}
+
+/* Continuous 1px Perimeter Laser Beam Tracer */
+@keyframes laserPerimeterRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.continuous-laser-perimeter-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.continuous-laser-perimeter-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 270deg,
+    rgba(59, 66, 196, 0.8) 320deg,
+    #818cf8 350deg,
+    rgba(59, 66, 196, 0.8) 360deg
+  );
+  animation: laserPerimeterRotate 5s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.continuous-laser-perimeter-content {
+  position: relative;
+  z-index: 1;
+  background-color: #faf9f6;
+  border-radius: 1.5rem;
+}
+
+

@@ -30,6 +30,18 @@ export interface Achievement {
   category: 'Streak' | 'Commit' | 'Social' | 'Milestone';
 }
 
+export interface CompletedJourney {
+  id: string;
+  track: string;
+  completedAt: string;
+  totalDays: number;
+  totalBuilds: number;
+  totalProofs: number;
+  longestStreak: number;
+  githubHandle: string;
+  linkedinHandle: string;
+}
+
 export interface StudentProfile {
   name: string;
   college: string;
@@ -43,6 +55,10 @@ export interface StudentProfile {
   bio?: string;
   githubHandle?: string;
   linkedInHandle?: string;
+  challengeCompleted?: boolean;
+  githubVerified?: boolean;
+  linkedinVerified?: boolean;
+  completedJourneys?: CompletedJourney[];
 }
 
-export type ViewModeState = 'normal' | 'firstDay' | 'missedDay' | 'emptyProfile';
+export type ViewModeState = 'normal' | 'firstDay' | 'missedDay' | 'emptyProfile' | 'completed';

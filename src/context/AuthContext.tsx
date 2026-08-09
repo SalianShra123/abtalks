@@ -1,33 +1,56 @@
 import React, { createContext, useContext, useState } from 'react';
+import { CompletedJourney } from '../types';
 
 export interface MockUser {
   id: string;
   name: string;
+  username: string;
+  role: string;
   email: string;
   track: string;
   currentDay: number;
   streak: number;
   completedDays: number;
   totalDays: number;
+  totalBuilds: number;
+  totalProofs: number;
+  longestStreak: number;
   githubConnected: boolean;
   linkedinConnected: boolean;
+  githubVerified: boolean;
+  linkedinVerified: boolean;
+  challengeCompleted: boolean;
   college?: string;
   avatarUrl?: string;
+  githubHandle?: string;
+  linkedinHandle?: string;
+  completedJourneys?: CompletedJourney[];
 }
 
 export const defaultMockUser: MockUser = {
   id: 'user_001',
   name: 'Shravya',
+  username: 'shravya',
+  role: 'Frontend Developer',
   email: 'shravya@example.com',
   track: 'Frontend Development',
   currentDay: 12,
   streak: 12,
   completedDays: 11,
   totalDays: 60,
+  totalBuilds: 11,
+  totalProofs: 10,
+  longestStreak: 32,
   githubConnected: true,
   linkedinConnected: true,
+  githubVerified: true,
+  linkedinVerified: true,
+  challengeCompleted: false,
   college: 'Nitte Meenakshi Institute of Technology',
   avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
+  githubHandle: 'shravyams',
+  linkedinHandle: 'shravyamsalian',
+  completedJourneys: [],
 };
 
 interface AuthContextType {
@@ -38,6 +61,9 @@ interface AuthContextType {
   signInWithGoogle: () => Promise<boolean>;
   signOut: () => void;
   forgotPassword: (email: string) => Promise<boolean>;
+  complete60DayChallenge: () => void;
+  startNewChallenge: (newTrack: string) => void;
+  updateUser: (fields: Partial<MockUser>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -76,6 +102,65 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const updateUser = (fields: Partial<MockUser>) => {
+    if (!user) return;
+    const updated = { ...user, ...fields };
+    handleSetAuthUser(updated);
+  };
+
+  const complete60DayChallenge = () => {
+    if (!user) return;
+    const existingJourneys = user.completedJourneys || [];
+    const alreadySaved = existingJourneys.some((j) => j.track === user.track);
+    
+    let updatedJourneys = existingJourneys;
+    if (!alreadySaved) {
+      const newJourney: CompletedJourney = {
+        id: `journey_${Date.now()}`,
+        track: user.track || 'Frontend Development',
+        completedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        totalDays: 60,
+        totalBuilds: 60,
+        totalProofs: 60,
+        longestStreak: 32,
+        githubHandle: user.githubHandle || 'shravyams',
+        linkedinHandle: user.linkedinHandle || 'shravyamsalian',
+      };
+      updatedJourneys = [newJourney, ...existingJourneys];
+    }
+
+    const completedUser: MockUser = {
+      ...user,
+      currentDay: 60,
+      completedDays: 60,
+      totalBuilds: 60,
+      totalProofs: 60,
+      longestStreak: Math.max(user.longestStreak || 32, 32),
+      challengeCompleted: true,
+      githubVerified: true,
+      linkedinVerified: true,
+      completedJourneys: updatedJourneys,
+    };
+    handleSetAuthUser(completedUser);
+  };
+
+  const startNewChallenge = (newTrack: string) => {
+    if (!user) return;
+    const newChallengeUser: MockUser = {
+      ...user,
+      track: newTrack,
+      currentDay: 1,
+      completedDays: 0,
+      streak: 0,
+      totalBuilds: 0,
+      totalProofs: 0,
+      challengeCompleted: false,
+      githubVerified: false,
+      linkedinVerified: false,
+    };
+    handleSetAuthUser(newChallengeUser);
+  };
+
   const signIn = async (email: string, pass: string): Promise<boolean> => {
     await new Promise((res) => setTimeout(res, 900));
     const newUser: MockUser = {
@@ -92,16 +177,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const newUser: MockUser = {
       id: `user_${Date.now().toString().slice(-4)}`,
       name: name || 'Shravya',
+      username: (name || 'shravya').toLowerCase().replace(/\s+/g, ''),
+      role: track || 'Frontend Developer',
       email: email || 'shravya@example.com',
       track: track || 'Frontend Development',
       currentDay: 12,
       streak: 12,
       completedDays: 11,
       totalDays: 60,
+      totalBuilds: 11,
+      totalProofs: 10,
+      longestStreak: 32,
       githubConnected: true,
       linkedinConnected: true,
+      githubVerified: true,
+      linkedinVerified: true,
+      challengeCompleted: false,
       college: 'Nitte Meenakshi Institute of Technology',
       avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
+      githubHandle: 'shravyams',
+      linkedinHandle: 'shravyamsalian',
+      completedJourneys: [],
     };
     handleSetAuthUser(newUser);
     return true;
@@ -137,6 +233,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         signInWithGoogle,
         signOut,
         forgotPassword,
+        complete60DayChallenge,
+        startNewChallenge,
+        updateUser,
       }}
     >
       {children}

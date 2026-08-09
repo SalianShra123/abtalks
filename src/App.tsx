@@ -9,6 +9,8 @@ import { CinematicIntroExperience } from './components/CinematicIntroExperience'
 import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ChallengeDayPage } from './pages/ChallengeDayPage';
+import { ProfilePage } from './pages/ProfilePage';
+import { JourneyPage } from './pages/JourneyPage';
 import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { initialProfile, emptyProfile, achievementsData, generate60Days } from './data/mockData';
@@ -129,7 +131,14 @@ export default function App() {
                   }
                 />
 
-                {/* Route 5: /day/12 and dynamic /day/:dayId */}
+                {/* Route 5: /profile/shravya and /profile/:username */}
+                <Route path="/profile/:username" element={<ProfilePage />} />
+                <Route path="/profile" element={<Navigate to="/profile/shravya" replace />} />
+
+                {/* Route 6: /journey */}
+                <Route path="/journey" element={<JourneyPage days={days} />} />
+
+                {/* Route 7: /day/12 and dynamic /day/:dayId */}
                 <Route
                   path="/day/:dayId"
                   element={

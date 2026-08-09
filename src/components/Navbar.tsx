@@ -80,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <nav className="hidden md:flex items-center gap-1">
           <button
             onClick={() => handleNavClick('/')}
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
               isActive('/')
                 ? 'bg-zinc-900 text-white font-semibold shadow-xs'
                 : 'text-zinc-600 hover:text-indigo-600 hover:bg-indigo-50/80'
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           
           <button
             onClick={() => handleNavClick('/dashboard')}
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 group ${
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 flex items-center gap-1.5 group ${
               isActive('/dashboard')
                 ? 'bg-zinc-900 text-white font-semibold shadow-xs'
                 : 'text-zinc-600 hover:text-indigo-600 hover:bg-indigo-50/80'
@@ -108,9 +108,31 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
+            onClick={() => handleNavClick('/journey')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
+              isActive('/journey')
+                ? 'bg-zinc-900 text-white font-semibold shadow-xs'
+                : 'text-zinc-600 hover:text-indigo-600 hover:bg-indigo-50/80'
+            }`}
+          >
+            Journey
+          </button>
+
+          <button
+            onClick={() => handleNavClick('/profile/shravya')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
+              isActive('/profile/shravya')
+                ? 'bg-zinc-900 text-white font-semibold shadow-xs'
+                : 'text-zinc-600 hover:text-indigo-600 hover:bg-indigo-50/80'
+            }`}
+          >
+            Proof Profile
+          </button>
+
+          <button
             onClick={() => handleNavClick('/day/12')}
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
-              isActive('/day/12')
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
+              isActive('/day/12') || isActive('/day/60')
                 ? 'bg-zinc-900 text-white font-semibold shadow-xs'
                 : 'text-zinc-600 hover:text-indigo-600 hover:bg-indigo-50/80'
             }`}
@@ -144,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
               <span className="hidden lg:inline">State:</span>
               <span className="capitalize font-semibold text-zinc-900 group-hover:text-indigo-700">
-                {viewMode === 'normal' ? 'Normal' : viewMode === 'firstDay' ? 'Day 01' : viewMode === 'missedDay' ? 'Missed Day' : 'Empty Profile'}
+                {viewMode === 'normal' ? 'Normal' : viewMode === 'completed' ? 'Completed' : viewMode === 'firstDay' ? 'Day 01' : viewMode === 'missedDay' ? 'Missed Day' : 'Empty Profile'}
               </span>
             </button>
 
@@ -170,6 +192,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <div>
                       <div>Normal Active State</div>
                       <div className="text-[10px] text-zinc-600">Day 12 • 12 Day Streak</div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => { setViewMode('completed'); setEdgeCaseMenuOpen(false); }}
+                    className={`w-full text-left px-2.5 py-2 rounded-lg flex items-center gap-2 ${
+                      viewMode === 'completed' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'hover:bg-zinc-50 text-zinc-700'
+                    }`}
+                  >
+                    <Trophy className="w-3.5 h-3.5 text-emerald-600" />
+                    <div>
+                      <div>60-Day Completed</div>
+                      <div className="text-[10px] text-zinc-600">60/60 Days Complete</div>
                     </div>
                   </button>
 
